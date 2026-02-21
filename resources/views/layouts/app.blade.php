@@ -14,23 +14,25 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="min-h-screen font-sans antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-200">
+        <div class="min-h-screen relative">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="mx-6 mt-4 glass-card">
+                    <div class="max-w-7xl mx-auto py-6 px-6">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="py-8">
                 {{ $slot }}
             </main>
         </div>
+        <div class="pointer-events-none fixed -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-indigo-600/30 blur-[120px]"></div>
+        <div class="pointer-events-none fixed -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-fuchsia-600/20 blur-[120px]"></div>
     </body>
 </html>

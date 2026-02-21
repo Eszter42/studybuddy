@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg;
+  }
+
+  .glass-surface {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl;
+  }
+}
+
+html, body {
+  overscroll-behavior: none;
+}
+
+:root{
+  color-scheme: dark;
+  scrollbar-color: rgba(255,255,255,.28) rgba(15,23,42,.55);
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: rgba(15,23,42,.55);
+}
+
+::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.22);
+  border-radius: 9999px;
+  border: 2px solid rgba(15,23,42,.55);
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: rgba(255,255,255,.32);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.05) inset !important;
+    -webkit-text-fill-color: #e2e8f0 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
