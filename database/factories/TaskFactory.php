@@ -15,9 +15,11 @@ class TaskFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+{
+    return [
+        'title' => $this->faker->sentence,
+        'status' => 'todo',
+        'priority' => 'medium',
+    ];
+}
 }
