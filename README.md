@@ -12,7 +12,7 @@ Előfeltételek
 - Node.js és npm
 	>Ellenőrizhető a `node -v` és `npm -v parancsokkal`, ha nincs, vagy elavult a verzió, telepítsd a [Node.js-t](https://nodejs.org/en/download)
 
-Ha ezek megvannak, további konfigurációk amik szükségesek lehetnek:
+Ha ezek megvannak, további konfigurációk, amik szükségesek lehetnek:
 
 - Nyisd meg: C:\xampp\php\php.ini
 	> Keresd meg a ;extension=zip sort és töröld ki a pontosvesszőt előle
