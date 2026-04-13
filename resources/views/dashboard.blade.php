@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="glass-card p-8">
                 <h3 class="text-xl font-semibold tracking-wide mb-6 text-indigo-300">
-                    Közelgő feladatok
+                    Approaching deadline
                 </h3>
 
                 @forelse ($tasks as $task)
@@ -18,7 +18,7 @@
                             {{ $task->title }}
                         </div>
                         <div class="text-sm text-slate-400">
-                            Határidő: {{ optional($task->due_at)->format('Y-m-d') ?? '—' }}
+                            Due: {{ optional($task->due_at)->format('Y-m-d') ?? '—' }}
                         </div>
                     </div>
                 @empty
