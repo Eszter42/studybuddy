@@ -1,9 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
+<x-slot name="header">
+    <div class="flex items-center min-h-[36px]">
         <h2 class="font-semibold text-xl text-slate-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-    </x-slot>
+    </div>
+</x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
