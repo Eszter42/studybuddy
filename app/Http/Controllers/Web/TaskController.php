@@ -171,7 +171,7 @@ public function store(Request $request)
     $tasks = auth()->user()
         ->tasks()
         ->orderBy('due_at')
-        ->limit(5)
+        ->limit(3)
         ->get();
 
     return view('dashboard', compact('tasks'));
