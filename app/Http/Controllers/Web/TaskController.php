@@ -166,15 +166,26 @@ public function store(Request $request)
         return back()->with('status', 'Státusz frissítve.');
     }
 
-    public function dashboard()
+public function dashboard()
 {
     $tasks = auth()->user()
         ->tasks()
+        ->whereNotNull('due_at')
+        ->where('status', '!=', 'done')
         ->orderBy('due_at')
         ->limit(3)
         ->get();
 
-    return view('dashboard', compact('tasks'));
+    $highPriorityTasks = auth()->user()
+        ->tasks()
+        ->where('priority', 'high')
+        ->where('status', '!=', 'done')
+        ->whereNotIn('id', $tasks->pluck('id'))
+        ->inRandomOrder()
+        ->limit(3)
+        ->get();
+
+    return view('dashboard', compact('tasks', 'highPriorityTasks'));
 }
 
 public function storeSubtask(Request $request, Task $task)
