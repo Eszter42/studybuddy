@@ -12,7 +12,7 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             @if (session('ok'))
                 <div class="glass-card border border-emerald-400/20 bg-emerald-500/10 text-emerald-100 p-3 rounded-xl">
