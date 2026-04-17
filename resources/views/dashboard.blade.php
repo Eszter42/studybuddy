@@ -1,9 +1,10 @@
 <x-app-layout>
 <x-slot name="header">
-    <div class="flex items-center min-h-[36px]">
+    <div class="flex items-center justify-between min-h-[36px]">
         <h2 class="font-semibold text-xl text-slate-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+        <div id="dashboard-clock" class="text-sm md:text-base text-slate-300 font-medium tracking-wide"></div>
     </div>
 </x-slot>
 
@@ -24,7 +25,7 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-slate-400">Nincs feladat.</p>
+                    <p class="text-slate-400">No tasks approaching deadline.</p>
                 @endforelse
             </div>
 
@@ -43,9 +44,30 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-slate-400">Nincs high priority feladat.</p>
+                    <p class="text-slate-400">No high priority tasks.</p>
                 @endforelse
             </div>
         </div>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const clock = document.getElementById('dashboard-clock');
+
+        function updateClock() {
+            const now = new Date();
+
+            const formatted = now.toLocaleString('en-GB', {
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            clock.textContent = formatted;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    });
+</script>
 </x-app-layout>

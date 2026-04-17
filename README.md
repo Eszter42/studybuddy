@@ -45,7 +45,7 @@ Futtasd a projekt mappájában:
 ## Funkciók
 
 - Regisztráció, bejelentkezés
-	> Laravel authenticationon alapulván, minden funkció megtalálható, csak formátumnak megfelelő e-mail címet fogad el, a jelszót el kell ismételni korrektül és meg kell felelnie adott követelményeknek (pl.: hossz), emellett egy tetszőleges nevet is meg lehet adni. Ezek, a regisztrációnál bekért adatok ezután eltárolódnak az adatbázisban és használatukkal lehetségessé válik a bejelentkezés. Csak bejelentkezve hozzáférhető a webalkalmazás. Ki is lehet jelentkezni.
+	> Laravel authenticationon alapulva, minden funkció megtalálható, csak formátumnak megfelelő e-mail címet fogad el, a jelszót el kell ismételni korrektül és meg kell felelnie adott követelményeknek (pl.: hossz), emellett egy tetszőleges nevet is meg lehet adni. Ezek, a regisztrációnál bekért adatok ezután eltárolódnak az adatbázisban és használatukkal lehetségessé válik a bejelentkezés. Csak bejelentkezve hozzáférhető a webalkalmazás. Ki is lehet jelentkezni. A belépési pont alapértelmezetten a login, emellett viszont a /register is elérhető, ha még nincs fiókod.
 - Dashboard
 	>  Az első a sorban összegzi a felvett adatokat, feladatokat. Amennyiben nincs felvett feladat, kiírja "Nincs közelgő feladat". A feladatok egyébként határidejük szerint vannak rendezve, mai dátumhoz való közelségük alapján.
 - Tasks
