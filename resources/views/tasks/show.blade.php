@@ -28,7 +28,6 @@
 
             <div class="glass-card p-6 space-y-3">
                 <div class="text-sm text-slate-300 flex flex-wrap gap-2">
-                    <span>Status: <b class="text-slate-100">{{ $task->status }}</b></span>
                     <span>Priority: <b class="text-slate-100">{{ $task->priority }}</b></span>
                     <span>Due: <b class="text-slate-100">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
                     <span>Estimate: <b class="text-slate-100">{{ $task->estimate_minutes ? $task->estimate_minutes.' min' : '—' }}</b></span>
@@ -44,7 +43,6 @@
                 @endif
             </div>
 
-            <!-- Subtasks -->
             <div class="glass-card p-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-semibold text-slate-100">Subtasks</h3>

@@ -39,15 +39,16 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-sm text-slate-300">Priority</label>
-                            <select
+                            <x-form-dropdown
                                 name="priority"
-                                class="w-full rounded-xl bg-white/5 border border-white/10 text-slate-100 focus:border-white/20 focus:ring-0"
-                                required
-                            >
-                                <option value="low" @selected(old('priority')==='low')>low</option>
-                                <option value="medium" @selected(old('priority','medium')==='medium')>medium</option>
-                                <option value="high" @selected(old('priority')==='high')>high</option>
-                            </select>
+                                :value="old('priority', 'medium')"
+                                placeholder="Select priority"
+                                :options="[
+                                    ['value' => 'low', 'label' => 'low'],
+                                    ['value' => 'medium', 'label' => 'medium'],
+                                    ['value' => 'high', 'label' => 'high'],
+                                ]"
+                            />
                             @error('priority')
                                 <div class="text-sm text-rose-400">{{ $message }}</div>
                             @enderror
@@ -55,17 +56,12 @@
 
                         <div>
                             <label class="text-sm text-slate-300">Subject (optional)</label>
-                            <select
+                            <x-form-dropdown
                                 name="subject_id"
-                                class="w-full rounded-xl bg-white/5 border border-white/10 text-slate-100 focus:border-white/20 focus:ring-0"
-                            >
-                                <option value="">—</option>
-                                @foreach($subjects as $s)
-                                    <option value="{{ $s->id }}" @selected(old('subject_id')==$s->id)>
-                                        {{ $s->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                :value="old('subject_id')"
+                                placeholder="—"
+                                :options="$subjects->map(fn($s) => ['value' => (string) $s->id, 'label' => $s->name])->values()->all()"
+                            />
                             @error('subject_id')
                                 <div class="text-sm text-rose-400">{{ $message }}</div>
                             @enderror
@@ -104,8 +100,10 @@
                         <button class="px-5 py-2 rounded-xl bg-indigo-500/80 hover:bg-indigo-500 text-white shadow">
                             Create
                         </button>
-                        <a href="{{ route('tasks.index') }}"
-                           class="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10">
+                        <a
+                            href="{{ route('tasks.index') }}"
+                            class="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10"
+                        >
                             Cancel
                         </a>
                     </div>

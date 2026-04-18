@@ -29,12 +29,12 @@
                 </div>
 
                 <div 
-                    x-data="{ open: false, selected: '{{ request('status') ?? '' }}' }" 
+                    x-data="{ open: false, selected: '{{ request('priority') ?? '' }}' }" 
                     class="w-full sm:w-48 relative z-50"
                 >
-                    <label class="text-sm text-slate-300">Status</label>
+                    <label class="text-sm text-slate-300">Priority</label>
 
-                    <input type="hidden" name="status" x-model="selected">
+                    <input type="hidden" name="priority" x-model="selected">
 
                     <button 
                         type="button"
@@ -57,14 +57,14 @@
                         <div @click="selected=''; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
                             All
                         </div>
-                        <div @click="selected='todo'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
-                            todo
+                        <div @click="selected='low'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
+                            low
                         </div>
-                        <div @click="selected='doing'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
-                            doing
+                        <div @click="selected='medium'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
+                            medium
                         </div>
-                        <div @click="selected='done'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
-                            done
+                        <div @click="selected='high'; open=false" class="px-4 py-2 hover:bg-white/10 cursor-pointer">
+                            high
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,6 @@
                             </a>
 
                             <div class="text-sm text-slate-300 mt-1 flex flex-wrap gap-2">
-                                <span>Status: <b class="text-slate-100">{{ $task->status }}</b></span>
                                 <span>Priority: <b class="text-slate-100">{{ $task->priority }}</b></span>
                                 <span>Due: <b class="text-slate-100">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
                                 @if($task->subject)
