@@ -101,15 +101,14 @@
                 </div>
             </div>
 
-            <form method="POST"
-                  action="{{ route('tasks.destroy', $task) }}"
-                  onsubmit="return confirm('Delete this task?')">
-                @csrf
-                @method('DELETE')
-                <button class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white shadow">
-                    Delete task
-                </button>
-            </form>
+            <div class="flex gap-3">
+                <a href="{{ route('tasks.index') }}"
+                   class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 shadow border border-white/10">
+                    Back
+                </a>
+
+                
+            </div>
 
         </div>
     </div>
