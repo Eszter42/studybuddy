@@ -185,7 +185,13 @@ public function dashboard()
         ->limit(3)
         ->get();
 
-    return view('dashboard', compact('tasks', 'highPriorityTasks'));
+    $allTasks = auth()->user()
+        ->tasks()
+        ->where('status', '!=', 'done')
+        ->select('id', 'title', 'due_at')
+        ->get();
+
+    return view('dashboard', compact('tasks', 'highPriorityTasks', 'allTasks'));
 }
 
 public function storeSubtask(Request $request, Task $task)
