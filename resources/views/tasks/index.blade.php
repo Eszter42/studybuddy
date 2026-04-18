@@ -81,36 +81,56 @@
 
             <div class="glass-card p-0 overflow-hidden">
                 @forelse ($tasks as $task)
-                    <div class="px-6 py-5 border-b border-white/10 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <div class="min-w-0">
-                            <a class="font-semibold text-slate-100 hover:underline" href="{{ route('tasks.show', $task) }}">
-                                {{ $task->title }}
-                            </a>
+        <div class="px-6 py-5 border-b border-white/10 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 {{ $task->status === 'done' ? 'opacity-70' : '' }}">
+        <div class="min-w-0 flex items-start gap-4">
+            <form method="POST" action="{{ route('tasks.patchStatus', $task) }}" class="pt-1">
+                @csrf
+                @method('PATCH')
+                <input type="hidden" name="status" value="{{ $task->status === 'done' ? 'todo' : 'done' }}">
+                <button
+                    type="submit"
+                    class="h-7 w-7 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white"
+                    title="{{ $task->status === 'done' ? 'Mark as incomplete' : 'Mark as complete' }}"
+                >
+                    @if($task->status === 'done')
+                        ✓
+                    @endif
+                </button>
+            </form>
 
-                            <div class="text-sm text-slate-300 mt-1 flex flex-wrap gap-2">
-                                <span>Priority: <b class="text-slate-100">{{ $task->priority }}</b></span>
-                                <span>Due: <b class="text-slate-100">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
-                                @if($task->subject)
-                                    <span>Subject: <b class="text-slate-100">{{ $task->subject->name }}</b></span>
-                                @endif
-                                <span>Subtasks: <b class="text-slate-100">{{ $task->subtasks->count() }}</b></span>
-                            </div>
-                        </div>
+            <div class="min-w-0">
+                <a
+                    class="font-semibold hover:underline {{ $task->status === 'done' ? 'text-slate-400 line-through' : 'text-slate-100' }}"
+                    href="{{ route('tasks.show', $task) }}"
+                >
+                    {{ $task->title }}
+                </a>
 
-                        <div class="flex gap-2">
-                            <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm border border-white/10">
-                                Edit
-                            </a>
-                            <form method="POST" action="{{ route('tasks.destroy', $task) }}" onsubmit="return confirm('Delete this task?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm">
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @empty
+                <div class="text-sm mt-1 flex flex-wrap gap-2 {{ $task->status === 'done' ? 'text-slate-400 line-through' : 'text-slate-300' }}">
+                    <span>Priority: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->priority }}</b></span>
+                    <span>Due: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
+                    @if($task->subject)
+                        <span>Subject: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->subject->name }}</b></span>
+                    @endif
+                    <span>Subtasks: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->subtasks->count() }}</b></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm border border-white/10">
+                Edit
+            </a>
+            <form method="POST" action="{{ route('tasks.destroy', $task) }}" onsubmit="return confirm('Delete this task?')">
+                @csrf
+                @method('DELETE')
+                <button class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+@empty
                     <div class="p-6 text-slate-300">No tasks yet. Create one!</div>
                 @endforelse
             </div>

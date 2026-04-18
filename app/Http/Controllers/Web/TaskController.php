@@ -156,10 +156,10 @@ public function update(Request $request, Task $task)
         ]);
 
         $task->status = $data['status'];
-        $task->completed_at = ($data['status'] === 'done') ? now() : null;
+        $task->completed_at = $data['status'] === 'done' ? now() : null;
         $task->save();
 
-        return back()->with('status', 'Státusz frissítve.');
+        return back()->with('ok', 'Státusz frissítve.');
     }
 
     public function dashboard()
