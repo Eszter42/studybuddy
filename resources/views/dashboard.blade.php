@@ -76,7 +76,7 @@
                         <div class="w-full shrink-0">
                             <div class="glass-card p-8 min-h-[420px]">
                                 <h3 class="text-xl font-semibold tracking-wide mb-6 text-indigo-300">
-                                    Completed tasks
+                                    Completed tasks (Good job!)
                                 </h3>
 
                                 @forelse ($completedTasks as $task)
@@ -84,8 +84,8 @@
                                         <div class="text-lg font-medium text-white line-through">
                                             {{ $task->title }}
                                         </div>
-                                        <div class="text-sm text-slate-400 line-through">
-                                            Due: {{ optional($task->due_at)->format('Y-m-d') ?? '—' }}
+                                        <div class="text-sm text-slate-400">
+                                            Due: -
                                         </div>
                                     </div>
                                 @empty
