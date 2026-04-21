@@ -8,6 +8,12 @@
         </div>
     </x-slot>
 
+    @php
+        $taskCollection = method_exists($tasks, 'getCollection') ? $tasks->getCollection() : $tasks;
+        $activeTasks = $taskCollection->filter(fn ($task) => $task->status !== 'done');
+        $completedTasks = $taskCollection->filter(fn ($task) => $task->status === 'done');
+    @endphp
+
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
@@ -28,15 +34,15 @@
                     >
                 </div>
 
-                <div 
-                    x-data="{ open: false, selected: '{{ request('priority') ?? '' }}' }" 
+                <div
+                    x-data="{ open: false, selected: '{{ request('priority') ?? '' }}' }"
                     class="w-full sm:w-48 relative z-50"
                 >
                     <label class="text-sm text-slate-300">Priority</label>
 
                     <input type="hidden" name="priority" x-model="selected">
 
-                    <button 
+                    <button
                         type="button"
                         @click="open = !open"
                         class="w-full mt-1 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-100 flex justify-between items-center"
@@ -47,7 +53,7 @@
                         </svg>
                     </button>
 
-                    <div 
+                    <div
                         x-show="open"
                         @click.outside="open = false"
                         x-transition
@@ -79,61 +85,130 @@
                 </div>
             </form>
 
-            <div class="glass-card p-0 overflow-hidden">
-                @forelse ($tasks as $task)
-        <div class="px-6 py-5 border-b border-white/10 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 {{ $task->status === 'done' ? 'opacity-70' : '' }}">
-        <div class="min-w-0 flex items-start gap-4">
-            <form method="POST" action="{{ route('tasks.patchStatus', $task) }}" class="pt-1">
-                @csrf
-                @method('PATCH')
-                <input type="hidden" name="status" value="{{ $task->status === 'done' ? 'todo' : 'done' }}">
-                <button
-                    type="submit"
-                    class="h-7 w-7 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white"
-                    title="{{ $task->status === 'done' ? 'Mark as incomplete' : 'Mark as complete' }}"
-                >
-                    @if($task->status === 'done')
-                        ✓
-                    @endif
-                </button>
-            </form>
+            @if ($activeTasks->isEmpty() && $completedTasks->isEmpty())
+                <div class="glass-card p-6 text-slate-300">No tasks yet. Create one!</div>
+            @else
+                <div class="space-y-6">
+                    <div>
+                        <div class="glass-card px-5 py-4 mb-3">
+                            <h3 class="text-lg font-semibold text-slate-100">Ongoing Tasks</h3>
+                        </div>
 
-            <div class="min-w-0">
-                <a
-                    class="font-semibold hover:underline {{ $task->status === 'done' ? 'text-slate-400 line-through' : 'text-slate-100' }}"
-                    href="{{ route('tasks.show', $task) }}"
-                >
-                    {{ $task->title }}
-                </a>
+                        <div class="glass-card p-0 overflow-hidden">
+                            @forelse ($activeTasks as $task)
+                                <div class="px-6 py-5 border-b border-white/10 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                    <div class="min-w-0 flex items-start gap-4">
+                                        <form method="POST" action="{{ route('tasks.patchStatus', $task) }}" class="pt-1">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="done">
+                                            <button
+                                                type="submit"
+                                                class="h-7 w-7 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white"
+                                                title="Mark as complete"
+                                            >
+                                            </button>
+                                        </form>
 
-                <div class="text-sm mt-1 flex flex-wrap gap-2 {{ $task->status === 'done' ? 'text-slate-400 line-through' : 'text-slate-300' }}">
-                    <span>Priority: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->priority }}</b></span>
-                    <span>Due: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
-                    @if($task->subject)
-                        <span>Subject: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->subject->name }}</b></span>
-                    @endif
-                    <span>Subtasks: <b class="{{ $task->status === 'done' ? 'text-slate-400' : 'text-slate-100' }}">{{ $task->subtasks->count() }}</b></span>
+                                        <div class="min-w-0">
+                                            <a
+                                                class="font-semibold hover:underline text-slate-100"
+                                                href="{{ route('tasks.show', $task) }}"
+                                            >
+                                                {{ $task->title }}
+                                            </a>
+
+                                            <div class="text-sm mt-1 flex flex-wrap gap-2 text-slate-300">
+                                                <span>Priority: <b class="text-slate-100">{{ $task->priority }}</b></span>
+                                                <span>Due: <b class="text-slate-100">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
+                                                @if($task->subject)
+                                                    <span>Subject: <b class="text-slate-100">{{ $task->subject->name }}</b></span>
+                                                @endif
+                                                <span>Subtasks: <b class="text-slate-100">{{ $task->subtasks->count() }}</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm border border-white/10">
+                                            Edit
+                                        </a>
+                                        <form method="POST" action="{{ route('tasks.destroy', $task) }}" onsubmit="return confirm('Delete this task?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="p-6 text-slate-300">No current tasks.</div>
+                            @endforelse
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="glass-card px-5 py-4 mb-3">
+                            <h3 class="text-lg font-semibold text-slate-300">Completed Tasks</h3>
+                        </div>
+
+                        <div class="glass-card p-0 overflow-hidden">
+                            @forelse ($completedTasks as $task)
+                                <div class="px-6 py-5 border-b border-white/10 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 opacity-70">
+                                    <div class="min-w-0 flex items-start gap-4">
+                                        <form method="POST" action="{{ route('tasks.patchStatus', $task) }}" class="pt-1">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="todo">
+                                            <button
+                                                type="submit"
+                                                class="h-7 w-7 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white"
+                                                title="Mark as incomplete"
+                                            >
+                                                ✓
+                                            </button>
+                                        </form>
+
+                                        <div class="min-w-0">
+                                            <a
+                                                class="font-semibold hover:underline text-slate-400 line-through"
+                                                href="{{ route('tasks.show', $task) }}"
+                                            >
+                                                {{ $task->title }}
+                                            </a>
+
+                                            <div class="text-sm mt-1 flex flex-wrap gap-2 text-slate-400 line-through">
+                                                <span>Priority: <b class="text-slate-400">{{ $task->priority }}</b></span>
+                                                <span>Due: <b class="text-slate-400">{{ $task->due_at ? $task->due_at->format('Y-m-d H:i') : '—' }}</b></span>
+                                                @if($task->subject)
+                                                    <span>Subject: <b class="text-slate-400">{{ $task->subject->name }}</b></span>
+                                                @endif
+                                                <span>Subtasks: <b class="text-slate-400">{{ $task->subtasks->count() }}</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm border border-white/10">
+                                            Edit
+                                        </a>
+                                        <form method="POST" action="{{ route('tasks.destroy', $task) }}" onsubmit="return confirm('Delete this task?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="p-6 text-slate-300">No completed tasks.</div>
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="flex gap-2">
-            <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm border border-white/10">
-                Edit
-            </a>
-            <form method="POST" action="{{ route('tasks.destroy', $task) }}" onsubmit="return confirm('Delete this task?')">
-                @csrf
-                @method('DELETE')
-                <button class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm">
-                    Delete
-                </button>
-            </form>
-        </div>
-    </div>
-@empty
-                    <div class="p-6 text-slate-300">No tasks yet. Create one!</div>
-                @endforelse
-            </div>
+            @endif
 
             @if ($tasks->hasPages())
                 <div class="mt-4 flex justify-center">
