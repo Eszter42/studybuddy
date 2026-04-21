@@ -163,32 +163,30 @@ public function update(Request $request, Task $task)
     }
 
     public function dashboard()
-    {
-        $tasks = auth()->user()
-            ->tasks()
-            ->whereNotNull('due_at')
-            ->where('status', '!=', 'done')
-            ->orderBy('due_at')
-            ->limit(3)
-            ->get();
+{
+    $tasks = auth()->user()
+        ->tasks()
+        ->whereNotNull('due_at')
+        ->where('status', '!=', 'done')
+        ->orderBy('due_at')
+        ->limit(6)
+        ->get();
 
-        $highPriorityTasks = auth()->user()
-            ->tasks()
-            ->where('priority', 'high')
-            ->where('status', '!=', 'done')
-            ->whereNotIn('id', $tasks->pluck('id'))
-            ->inRandomOrder()
-            ->limit(3)
-            ->get();
+    $highPriorityTasks = auth()->user()
+        ->tasks()
+        ->where('priority', 'high')
+        ->where('status', '!=', 'done')
+        ->orderBy('due_at')
+        ->get();
 
-        $allTasks = auth()->user()
-            ->tasks()
-            ->where('status', '!=', 'done')
-            ->select('id', 'title', 'due_at')
-            ->get();
+    $allTasks = auth()->user()
+        ->tasks()
+        ->where('status', '!=', 'done')
+        ->select('id', 'title', 'due_at')
+        ->get();
 
-        return view('dashboard', compact('tasks', 'highPriorityTasks', 'allTasks'));
-    }
+    return view('dashboard', compact('tasks', 'highPriorityTasks', 'allTasks'));
+}
 
     public function storeSubtask(Request $request, Task $task)
     {
