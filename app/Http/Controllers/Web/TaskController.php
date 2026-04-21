@@ -180,15 +180,22 @@ public function update(Request $request, Task $task)
             ->limit(3)
             ->get();
 
+        $completedTasks = auth()->user()
+            ->tasks()
+            ->where('status', 'done')
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+
         $allTasks = auth()->user()
             ->tasks()
             ->where('status', '!=', 'done')
             ->select('id', 'title', 'due_at')
             ->get();
 
-        return view('dashboard', compact('tasks', 'highPriorityTasks', 'allTasks'));
+        return view('dashboard', compact('tasks', 'highPriorityTasks', 'completedTasks', 'allTasks'));
     }
-
+    
     public function storeSubtask(Request $request, Task $task)
     {
         $request->validate([

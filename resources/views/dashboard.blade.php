@@ -76,6 +76,27 @@
                         <div class="w-full shrink-0">
                             <div class="glass-card p-8 min-h-[420px]">
                                 <h3 class="text-xl font-semibold tracking-wide mb-6 text-indigo-300">
+                                    Completed tasks
+                                </h3>
+
+                                @forelse ($completedTasks as $task)
+                                    <div class="py-4 border-b border-white/10 last:border-none">
+                                        <div class="text-lg font-medium text-white line-through">
+                                            {{ $task->title }}
+                                        </div>
+                                        <div class="text-sm text-slate-400 line-through">
+                                            Due: {{ optional($task->due_at)->format('Y-m-d') ?? '—' }}
+                                        </div>
+                                    </div>
+                                @empty
+                                    <p class="text-slate-400">No completed tasks.</p>
+                                @endforelse
+                            </div>
+                        </div>                        
+
+                        <div class="w-full shrink-0">
+                            <div class="glass-card p-8 min-h-[420px]">
+                                <h3 class="text-xl font-semibold tracking-wide mb-6 text-indigo-300">
                                     Approaching deadline
                                 </h3>
 
@@ -114,6 +135,12 @@
                         class="dashboard-dot h-3 w-3 rounded-full bg-white/30 transition-all duration-300"
                         data-slide="2"
                         aria-label="Go to slide 3"
+                    ></button>
+                    <button
+                        type="button"
+                        class="dashboard-dot h-3 w-3 rounded-full bg-white/30 transition-all duration-300"
+                        data-slide="3"
+                        aria-label="Go to slide 4"
                     ></button>
                 </div>
             </div>
