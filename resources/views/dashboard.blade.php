@@ -76,7 +76,7 @@
                         <div class="w-full shrink-0">
                             <div class="glass-card p-8 min-h-[420px]">
                                 <h3 class="text-xl font-semibold tracking-wide mb-6 text-indigo-300">
-                                    Completed tasks (Good job!)
+                                    Completed tasks
                                 </h3>
 
                                 @forelse ($completedTasks as $task)

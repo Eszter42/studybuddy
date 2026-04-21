@@ -159,7 +159,7 @@ public function update(Request $request, Task $task)
         $task->completed_at = $data['status'] === 'done' ? now() : null;
         $task->save();
 
-        return back()->with('ok', 'Státusz frissítve.');
+        return back()->with('ok', 'Status updated!');
     }
 
     public function dashboard()
@@ -195,7 +195,7 @@ public function update(Request $request, Task $task)
 
         return view('dashboard', compact('tasks', 'highPriorityTasks', 'completedTasks', 'allTasks'));
     }
-    
+
     public function storeSubtask(Request $request, Task $task)
     {
         $request->validate([
