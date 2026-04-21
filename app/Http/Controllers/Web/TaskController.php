@@ -31,7 +31,7 @@ class TaskController extends Controller
             $term = $request->string('q')->toString();
             $q->where(function ($w) use ($term) {
                 $w->where('title', 'like', "%{$term}%")
-                  ->orWhere('description', 'like', "%{$term}%");
+                ->orWhere('description', 'like', "%{$term}%");
             });
         }
 
@@ -44,12 +44,29 @@ class TaskController extends Controller
 
         $tasks = $q->paginate(12)->withQueryString();
 
+        $tasks->getCollection()->transform(function ($task) {
+            $totalSubtasks = $task->subtasks->count();
+            $doneSubtasks = $task->subtasks->where('is_done', true)->count();
+
+            if ($task->status === 'done') {
+                $task->subtask_progress_percent = 100;
+            } elseif ($totalSubtasks === 0) {
+                $task->subtask_progress_percent = 0;
+            } else {
+                $task->subtask_progress_percent = (int) round(($doneSubtasks / $totalSubtasks) * 100);
+            }
+
+            $task->total_subtasks_count = $totalSubtasks;
+            $task->done_subtasks_count = $doneSubtasks;
+
+            return $task;
+        });
+
         $subjects = Subject::where('user_id', $user->id)->orderBy('name')->get();
         $tags = Tag::where('user_id', $user->id)->orderBy('name')->get();
 
         return view('tasks.index', compact('tasks', 'subjects', 'tags'));
     }
-
     public function create(Request $request)
     {
         $user = $request->user();
