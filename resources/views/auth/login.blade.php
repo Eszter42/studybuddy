@@ -7,7 +7,6 @@
         <form method="POST" action="{{ route('login') }}" class="space-y-5">
             @csrf
 
-            <!-- Email -->
             <div>
                 <label for="email" class="block text-sm text-slate-300">
                     Email
@@ -27,7 +26,6 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-rose-400" />
             </div>
 
-            <!-- Password -->
             <div>
                 <label for="password" class="block text-sm text-slate-300">
                     Password
@@ -45,18 +43,23 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2 text-rose-400" />
             </div>
 
-            <!-- Remember -->
-            <div class="flex items-center">
-                <input
-                    id="remember_me"
-                    type="checkbox"
-                    name="remember"
-                    class="rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-0"
-                >
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input
+                        id="remember_me"
+                        type="checkbox"
+                        name="remember"
+                        class="rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-0"
+                    >
 
-                <label for="remember_me" class="ms-2 text-sm text-slate-400">
-                    Remember me
-                </label>
+                    <label for="remember_me" class="ms-2 text-sm text-slate-400">
+                        Remember me
+                    </label>
+                </div>
+
+                <a href="{{ route('register') }}" class="text-sm text-indigo-400 hover:text-indigo-300 underline">
+                    Register
+                </a>
             </div>
 
             <div class="flex items-center justify-end pt-2">
@@ -65,8 +68,8 @@
                     Log in
                 </button>
             </div>
-
         </form>
+
     </div>
 
 </x-guest-layout>
