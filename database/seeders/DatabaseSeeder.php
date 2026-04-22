@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Subject;
+use App\Models\Subtask;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -64,7 +65,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Task::updateOrCreate(
+        $mathTask = Task::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'title' => 'Practice algebra problems',
@@ -80,7 +81,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Task::updateOrCreate(
+        $englishTask = Task::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'title' => 'Write an essay',
@@ -96,7 +97,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Task::updateOrCreate(
+        $historyTask = Task::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'title' => 'Study World War II',
@@ -112,7 +113,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Task::updateOrCreate(
+        $cleanTask = Task::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'title' => 'Clean the room',
@@ -128,7 +129,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Task::updateOrCreate(
+        $laundryTask = Task::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'title' => 'Do the laundry',
@@ -142,6 +143,81 @@ class DatabaseSeeder extends Seeder
                 'estimate_minutes' => 45,
                 'completed_at' => now()->subHours(5),
             ]
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $mathTask->id, 'title' => 'Review formulas'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $mathTask->id, 'title' => 'Solve practice problems'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $mathTask->id, 'title' => 'Check answers'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $englishTask->id, 'title' => 'Write outline'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $englishTask->id, 'title' => 'Write first draft'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $englishTask->id, 'title' => 'Proofread final version'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $historyTask->id, 'title' => 'Read textbook chapter'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $historyTask->id, 'title' => 'Take notes on key events'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $historyTask->id, 'title' => 'Memorize important dates'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $cleanTask->id, 'title' => 'Vacuum the floor'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $cleanTask->id, 'title' => 'Organize the desk'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $cleanTask->id, 'title' => 'Take out the trash'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $laundryTask->id, 'title' => 'Separate clothes by color'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $laundryTask->id, 'title' => 'Start washing machine'],
+            []
+        );
+
+        Subtask::updateOrCreate(
+            ['task_id' => $laundryTask->id, 'title' => 'Fold clean clothes'],
+            []
         );
     }
 }
