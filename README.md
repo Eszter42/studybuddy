@@ -22,13 +22,16 @@ Ha ezek megvannak, további konfigurációk, amik szükségesek lehetnek:
 Ezután:
 
 - Kreálj egy .env fájlt a projekt mappájában (`copy .env.example .env`)
-	> Kommentáld ki a DB_ sorokat és állítsd a DB_CONNECTIONt mysql-re, adj neki nevet. (DB_DATABASE sor)
+	> Kommentáld ki a DB_ sorokat és állítsd a DB_CONNECTIONt mysql-re, adj neki nevet (study_buddy). (DB_DATABASE sor), esetleg az APP_NAME-et is írd át Laravelről StudyBuddyra
+
+	>hozz létre egy új mysql adatbázist studdybuddy néven
 
 - Továbbra is a projekt mappájában végzendő parancsok:
 	> - `composer install`, 
 	>- `npm install`,
 	 >- `php artisan key:generate`, 
 	 >- `php artisan migrate`
+	 >- `php artisan db:seed`
  
 Végül:
 
