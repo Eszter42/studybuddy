@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'teacher' => 'Joe',
-                'color' => '#8b5cf6',
             ]
         );
 
@@ -39,7 +38,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'teacher' => 'John',
-                'color' => '#3b82f6',
             ]
         );
 
@@ -50,7 +48,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'teacher' => 'Josh',
-                'color' => '#f59e0b',
             ]
         );
 
@@ -61,7 +58,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'teacher' => null,
-                'color' => '#10b981',
             ]
         );
 
@@ -147,77 +143,77 @@ class DatabaseSeeder extends Seeder
 
         Subtask::updateOrCreate(
             ['task_id' => $mathTask->id, 'title' => 'Review formulas'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $mathTask->id, 'title' => 'Solve practice problems'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $mathTask->id, 'title' => 'Check answers'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $englishTask->id, 'title' => 'Write outline'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $englishTask->id, 'title' => 'Write first draft'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $englishTask->id, 'title' => 'Proofread final version'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $historyTask->id, 'title' => 'Read textbook chapter'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $historyTask->id, 'title' => 'Take notes on key events'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $historyTask->id, 'title' => 'Memorize important dates'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $cleanTask->id, 'title' => 'Vacuum the floor'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $cleanTask->id, 'title' => 'Organize the desk'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $cleanTask->id, 'title' => 'Take out the trash'],
-            []
+            ['is_done' => false]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $laundryTask->id, 'title' => 'Separate clothes by color'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $laundryTask->id, 'title' => 'Start washing machine'],
-            []
+            ['is_done' => true]
         );
 
         Subtask::updateOrCreate(
             ['task_id' => $laundryTask->id, 'title' => 'Fold clean clothes'],
-            []
+            ['is_done' => true]
         );
     }
 }
