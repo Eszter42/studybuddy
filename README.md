@@ -61,7 +61,7 @@ Indítsd el XAMPP-on a MySQL-t, futtasd a projekt mappájában ezeket a parancso
 A tesztek a Tests mappán belül a Feature mappában találhatóak, a tesztek eredményei, pedig a `php artisan test` paranccsal megtekinthetőek. Lefuttatására az eredmény 23 sikeres és 5 átugrott teszt lesz. Ami át lett ugorva, az még nem teljeskörűen implementált funkció, tehát nem tesztelhető.
 
 - Az Auth mappa tesztjei:
-AuthenticationTest.php fájl
+**AuthenticationTest.php** fájl
 
 	>- test_login_screen_can_be_rendered
 meghívja a `/login` oldalt és
@@ -74,7 +74,7 @@ meghívja a `/login` oldalt és
     >- test_users_can_logout bejelentkezteti a usert , meghívja a `/logout` route-ot. Ellenőrzi kijelentkeztet-e, 
         visszairányít-e a kezdőoldalra (`/`)
      
-	 EmailVerificationTest.php fájl
+	 **EmailVerificationTest.php** fájl
 
 	>- test_email_verification_screen_can_be_rendered létrehoz egy nem hitelesített teszt felhasználót,  
 meghívja a `/verify-email` oldalt bejelentkezett állapotban  
@@ -84,7 +84,7 @@ meghívja a `/verify-email` oldalt bejelentkezett állapotban
 	
 	>- test_email_is_not_verified_with_invalid_hash létrehoz egy nem hitelesített felhasználót,  hibás hash-sel generál hitelesítési linket, megnyitja azt, ellenőrzi, hogy a felhasználó e-mail címe nem kerül hitelesítésre.
 
-	PasswordConfirmationTest.php fájl
+	**PasswordConfirmationTest.php** fájl
 
 	> -   test_confirm_password_screen_can_be_rendered** létrehoz egy teszt felhasználót,  bejelentkezett állapotban meghívja a `/confirm-password` oldalt  és ellenőrzi, hogy az oldal 200 OK választ ad-e.
 	
@@ -92,7 +92,7 @@ meghívja a `/verify-email` oldalt bejelentkezett állapotban
 
 	> -   test_password_is_not_confirmed_with_invalid_password létrehoz egy teszt felhasználót,  POST kéréssel hibás jelszót küld,  ellenőrzi, hogy a rendszer session hibát jelez és a megerősítés nem történik meg.
 
-	PasswordResetTest.php fájl
+	**PasswordResetTest.php** fájl
 
 	> -   test_reset_password_link_screen_can_be_rendered meghívja a `/forgot-password` oldalt és ellenőrzi, hogy 200 OK választ ad-e.  
 
@@ -102,36 +102,36 @@ meghívja a `/verify-email` oldalt bejelentkezett állapotban
 
 	> -   test_password_can_be_reset_with_valid_token létrehoz egy teszt felhasználót,  jelszó-visszaállítási link kérés után POST kéréssel új jelszót állít be érvényes tokennel,  ellenőrzi, hogy nem keletkezik session hiba és a rendszer a login oldalra irányít.
 	
-	PasswordUpdateTest.php fájl
+	**PasswordUpdateTest.php** fájl
 
 	> -   test_password_can_be_updated létrehoz egy teszt felhasználót, bejelentkezve PUT kéréssel új jelszót állít be a `/password` route-on. Ellenőrzi, hogy nem keletkezik session hiba, visszairányít-e a profil oldalra, valamint hogy a jelszó ténylegesen frissült-e az adatbázisban.
 
 	> -   test_correct_password_must_be_provided_to_update_password létrehoz egy teszt felhasználót, bejelentkezve hibás jelenlegi jelszóval próbál jelszót módosítani. Ellenőrzi, hogy a rendszer hibát jelez és visszairányít a profil oldalra.
 
-	RegistrationTest.php fájl
+	**RegistrationTest.php** fájl
 
 	> -   test_registration_screen_can_be_rendered meghívja a `/register` oldalt és ellenőrzi, hogy 200 OK választ ad-e.
 
 	> -   test_new_users_can_register POST kéréssel új felhasználót regisztrál megadott adatokkal. Ellenőrzi, hogy a felhasználó be lett-e jelentkeztetve és átirányít-e a dashboardra.
 	
 - Feature mappában található tesztek:
-	ApiSubjectCrudTest.php fájl
+	**ApiSubjectCrudTest.php** fájl
 
 	> -   test_authenticated_user_can_create_subject létrehoz egy teszt felhasználót, bejelentkezve POST kéréssel új tantárgyat hoz létre a subjects.store route-on. Ellenőrzi, hogy a kérés után átirányítás történik-e, valamint hogy a tantárgy adatai bekerültek-e az adatbázisba.
 	
-	ApiTaskAuthorizationTest.php fájl
+	**ApiTaskAuthorizationTest.php** fájl
 
 	> -   test_guest_cannot_access_tasks bejelentkezés nélkül meghívja a `/tasks` oldalt. Ellenőrzi, hogy a rendszer átirányít-e a bejelentkezési oldalra
 	
-	ApiTaskFilterTest.php fájl
+	**ApiTaskFilterTest.php** fájl
 
-	> -   test_user_can_filter_tasks_by_status létrehoz egy teszt felhasználót, majd két különböző státuszú feladatot hoz létre hozzá. Bejelentkezve meghívja a `/tasks?status=done` oldalt és ellenőrzi, hogy csak a megfelelő státuszú feladat jelenik meg, a másik nem.
+	> -   test_user_can_filter_tasks_by_status létrehoz egy teszt felhasználót, majd két különböző prioritású feladatot hoz létre hozzá. Bejelentkezve meghívja a `/tasks?priority=high` oldalt és ellenőrzi, hogy csak a megfelelő státuszú feladat jelenik meg, a másik nem.
 
-	ExampleTest.php fájl
+	**ExampleTest.php** fájl
 
 	> -   test_the_application_returns_a_successful_response meghívja a `/` kezdőoldalt és ellenőrzi, hogy a rendszer átirányít-e a bejelentkezési oldalra (`/login`).
 
-	ProfileTest.php fájl
+	**ProfileTest.php** fájl
 	(a tesztosztály inicializálásakor minden teszt kihagyásra kerül, mivel a profil funkció implementációja még nem készült el)
 
 	> -   test_profile_page_is_displayed létrehoz egy teszt felhasználót, bejelentkezve meghívja a `/profile` oldalt és ellenőrzi, hogy az oldal sikeres választ ad-e.
