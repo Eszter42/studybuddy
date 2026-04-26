@@ -44,6 +44,8 @@ Indítsd el XAMPP-on a MySQL-t, futtasd a projekt mappájában ezeket a parancso
 - `npm run dev`,
 - `php artisan serve`
 
+## Tesztadatok
+Tesztadatok elérhetőek a test@example.com emaillel és test1234 jelszóval való bejelentkezéssel. A DatabaseSeeder.php-ból.
 
 ## Funkciók
 
