@@ -3,25 +3,25 @@
 A **StudyBuddy** egy (nem kizárólag) tanulásban segédkező webapplikáció, ami a személyes feladatmenedzsment könnyebbé tételét célozza meg.
 
 ## Futtatás első alkalommal
-Előfeltételek
-- Php
-	> Ellenőrizhető a ` php -v ` paranccsal, ha nincs, telepítsd a
+### Előfeltételek
+- **Php**
+	> Ellenőrizhető a `php -v ` paranccsal, ha nincs, telepítsd a
 [XAMPP-ot](https://sourceforge.net/projects/xampp/files/)
-- Composer
+- **Composer**
 	> Ellenőrizhető a `composer -v` paranccsal, ha nincs, telepítsd: [Composer](https://getcomposer.org/download/) 
-- Node.js és npm
+- **Node.js és npm**
 	>Ellenőrizhető a `node -v` és `npm -v parancsokkal`, ha nincs, vagy elavult a verzió, telepítsd a [Node.js-t](https://nodejs.org/en/download)
 
-Ha ezek megvannak, további konfigurációk, amik szükségesek lehetnek:
+Ha ezek megvannak, további konfigurációk, amik **szükségesek lehetnek**:
 
 - Nyisd meg: C:\xampp\php\php.ini
 	> Keresd meg a ;extension=zip sort és töröld ki a pontosvesszőt előle
 - Nyisd meg a PowerShellt rendszergazdaként és `Set-ExecutionPolicy RemoteSigned`
-	> Kérdésére mondd, hogy "y"
+	> Kérdésére írd, hogy "y"
 
-Ezután:
+**Ezután:**
 
-- Kreálj egy .env fájlt a projekt mappájában (`copy .env.example .env`)
+- Készíts egy .env fájlt a projekt mappájában: `copy .env.example .env`
 	> Kommentáld ki a DB_ sorokat és állítsd a DB_CONNECTIONt mysql-re, adj neki nevet (study_buddy). (DB_DATABASE sor), esetleg az APP_NAME-et is írd át Laravelről StudyBuddyra
 
 	>hozz létre egy új mysql adatbázist studdybuddy néven
@@ -33,30 +33,28 @@ Ezután:
 	 >- `php artisan migrate`
 	 >- `php artisan db:seed`
  
-Végül:
+**Végül:**
 
-- Futtasd:
+- **Futtasd:**
 	>- `npm run dev`,
 	>- `php artisan serve`
 
 ## Futtatás
-Futtasd a projekt mappájában:
+Indítsd el XAMPP-on a MySQL-t, futtasd a projekt mappájában ezeket a parancsokat:
 - `npm run dev`,
 - `php artisan serve`
 
 
 ## Funkciók
 
-- Regisztráció, bejelentkezés
-	> Laravel authenticationon alapulva, minden funkció megtalálható, csak formátumnak megfelelő e-mail címet fogad el, a jelszót el kell ismételni korrektül és meg kell felelnie adott követelményeknek (pl.: hossz), emellett egy tetszőleges nevet is meg lehet adni. Ezek, a regisztrációnál bekért adatok ezután eltárolódnak az adatbázisban és használatukkal lehetségessé válik a bejelentkezés. Csak bejelentkezve hozzáférhető a webalkalmazás. Ki is lehet jelentkezni. A belépési pont alapértelmezetten a login, emellett viszont a /register is elérhető, ha még nincs fiókod.
-- Dashboard
-	>  Az első a sorban összegzi a felvett adatokat, feladatokat. Amennyiben nincs felvett feladat, kiírja "Nincs közelgő feladat". A feladatok egyébként határidejük szerint vannak rendezve, mai dátumhoz való közelségük alapján.
-- Tasks
-	> A Tasks nevezetű tab alkalmas a feladatok felvevésére. Itt a feladatok csupán a felvevésük sorrendjében rendeződnek, viszont van egy keresési, vagy szűrési funkció. Ha beléírsz ebbe a mezőbe mind a feladat címében, mind a leírásában keresni fog, emellett leszűkíthető státusz szerint is, mely feladatokat mutassa. Mindezz visszaállítható eredeti állapotába, a reset gombra kattintással.  A feladatok és részleteik mind megtekinthetőek, szerkeszthetőek és törölhetőek. Új feladat is felvehető. Subtaskok, amikkel kisebb részekbe oszthatod a nagyobb feladatokat, vagy a szerkesztés, vagy megtekintés folyamatán vehetőek fel. Feladatcímen kívül egyébként gyorsaság érdekében minden mást opcionális megadni.
-- Subjects
-	> Fel tudsz venni tantárgyakat, tanárral ezek a tantárgyak szintúgy eltárolódnak az adatbázisban, mint a feladatok, vagy a bejelentkezési adatok és feladat hozzáadásánál listájuk választhatóvá válik.
-- Profil
-	> Ki lehet jelentkezni, vagy innen is visszanavigálni a dashboardra.
+- **Regisztráció, bejelentkezés**
+	> Laravel authenticationon alapul, minden szükséges funkció megtalálható, csak formátumnak megfelelő e-mail címet fogad el, a jelszót meg kell ismételni, hogy az egyezzen az elsőször bevittel és meg kell felelnie adott követelményeknek (például hossz), emellett egy tetszőleges nevet is meg kell adni. Ezek a regisztrációnál bekért adatok ezután eltárolódnak az adatbázisban és használatukkal lehetségessé válik a bejelentkezés. Csak bejelentkezve hozzáférhető a webalkalmazás. Ki is lehet jelentkezni. A belépési pont alapértelmezetten a login, emellett viszont a /register is elérhető, ha fiókot akarsz készíteni.
+- **Dashboard**
+	>  A címsorban látható az aktuális idő percre pontosan. Az alatta lévő blokk carousel formában mutatja az adatokat. Első a közelgő feladatok, ami a három legkorábbi (még nem kész státuszú) időponttal bíró feladatot mutatja. Második a magas prioritású feladatok, ami véletlenszerű három feladatot mutat amiknek a prioritása magas és még nincs készen. Harmadik a véletlenszerű feladat, ami gombnyomásra kisorsol egy random feladatot, ha a használónak esetleg nehezére esne a választás. Negyedik a kész feladatok. Ezután a carousel visszaugrik az első lapra. Az alatta látható pontokkal a felhasználó kedvére navigálhat a lapok közt.
+- **Tasks**
+	> A Tasks nevezetű oldal alkalmas a feladatok felvevésére a tetején lévő + New gombra való kattintással. A kért adatok bevitele és a create gombra kattintás után a feladat belekerül az adatbázisba. Az Ongoing Tasks listán a feladatok határidő szerint vannak rendezve. A feladatok kereshetőek amennyiben a Serach nevű mezőbe beleírsz és rányomsz a Filter gombra. A keresés mind a feladat címét, mind a leírását figyelembe veszi. Szűkíthető prioritás szerint is és visszaállítható eredeti állapotába a Reset gombra kattintással. Egy feladat címére kattintva megtekinthetőek a részletek, valamint kihúzhatóak a subtaskok vagy hozzáadhatóak új subtaskok. Ha az Edit gombra kattintasz  szerkeszthetőek a feladat adatai, ha a Delete-re tölöhető a feladat. Minden feladat alatt van egy csík ami a subtaskok készenléti arányát mutatja. Ha a feladat elején lévő négyzet kipipálásra kerül, a feladat státusza megváltozik készre és átkerül a Completed Tasks listába.
+- **Subjects**
+	> Fel tudsz venni tantárgyakat, tanárral együtt ezek a tantárgyak eltárolódnak az adatbázisban, mint a feladatok, vagy a bejelentkezési adatok és feladat hozzáadásánál listájuk választhatóvá válik.
 
 ## Tesztek, eredmények, és azok dokumentációja
 
